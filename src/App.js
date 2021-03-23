@@ -5,12 +5,15 @@ import Movies from './Movies/Movies.js'
 class App extends Component {
   constructor() {
     super();
+    this.state = {
+      movieData: movieData,
+    }
   }
 
   render() {
     return (
       <main>
-        <Movies />
+        <Movies movieData={this.state.movieData}/>
       </main>
     );
   }

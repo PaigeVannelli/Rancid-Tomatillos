@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Poster = () => {
+const Poster = ({image}) => {
     return (
-        <h1>posters is working</h1>
+        <img src={image} />
     )
 }
 
