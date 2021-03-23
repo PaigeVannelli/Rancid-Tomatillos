@@ -1,5 +1,6 @@
 import movieData from './movieData.js';
 import React, {Component} from 'react';
+import Movies from './Movies/Movies.js'
 
 class App extends Component {
   constructor() {
@@ -9,7 +10,7 @@ class App extends Component {
   render() {
     return (
       <main>
-        <h1>Hello</h1>
+        <Movies />
       </main>
     );
   }
