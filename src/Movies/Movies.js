@@ -1,5 +1,6 @@
 import React from 'react'
 import Poster from '../Poster/Poster.js'
+import './Movies.css'
 
 const Movies = ({movieData}) => {
     console.log(movieData.movies)
