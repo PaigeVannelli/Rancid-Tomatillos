@@ -10,8 +10,13 @@ class App extends Component {
     super();
     this.state = {
       movieData: movieData,
+      view: 'mainPage'
     }
   }
+
+displayMovieDetails = () => {
+  this.setState({view: 'detailedView'})
+}
 
   render() {
     return (
@@ -20,8 +25,8 @@ class App extends Component {
           <button className='main-logo'><img src={logo} className='movie-reel-logo'/>Rancid<br>
           </br>Tomatillos</button>
         </nav>
-        {/* <Movies movieData={this.state.movieData}/> */}
-        <MovieDetails />
+        {this.state.view === 'mainPage' && <Movies movieData={this.state.movieData} displayMovieDetails={this.displayMovieDetails}/>}
+        {this.state.view === 'detailedView' && <MovieDetails />}
       </main>
     );
   }
