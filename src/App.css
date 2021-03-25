@@ -21,7 +21,6 @@ button {
   outline: none;
 }
 
-
 .main-logo {
   background-color: transparent;
   height: 100px;
@@ -32,6 +31,12 @@ button {
 .movie-reel-logo {
   height: 30px;
   width: auto;
+}
+
+.error {
+  top: 0;
+  left: 0;
+  transform: translate(38%, 500%);
 }
 
 #blockColorblindContent {

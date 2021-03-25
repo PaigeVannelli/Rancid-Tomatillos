@@ -9,18 +9,41 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      movieData: movieData,
-      view: 'mainPage'
+      // movieData: movieData,
+      movieData: {
+        movies: []
+      },
+      view: 'mainPage', 
+      error: '',
     }
   }
 
-goToMain = () => {
-  this.setState({view: 'mainPage'})
-}
+  componentDidMount() {
+    fetch('https://rancid-tomatillos.herokuapp.com/api/v2/movis')
+    .then(response => response.json())
+    .then(data => this.setState({movieData: data}))
+    .catch(error => this.setState({error: error.message}))
+  }
 
-displayMovieDetails = () => {
-  this.setState({view: 'detailedView'})
-}
+  checkIfLoading() {
+    if (!this.state.movieData.movies.length && !this.state.error) {
+      return <h1 className='error'>Loading...</h1>
+    }
+  }
+
+  handleIfFailed() {
+    if (this.state.error) {
+      return <h1 className='error'>Failed to load</h1>
+    }
+  }
+
+  goToMain = () => {
+    this.setState({view: 'mainPage'})
+  }
+
+  displayMovieDetails = () => {
+    this.setState({view: 'detailedView'})
+  }
 
   render() {
     return (
@@ -29,6 +52,8 @@ displayMovieDetails = () => {
           <button className='main-logo' onClick={this.goToMain}><img src={logo} className='movie-reel-logo'/>Rancid<br>
           </br>Tomatillos</button>
         </nav>
+        {this.checkIfLoading()}
+        {this.handleIfFailed()}
         {this.state.view === 'mainPage' && <Movies movieData={this.state.movieData} displayMovieDetails={this.displayMovieDetails}/>}
         {this.state.view === 'detailedView' && <MovieDetails />}
       </main>
