@@ -15,23 +15,29 @@ class MovieDetails extends Component {
         .then(data => this.setState(data.movie))
     }
 
+    getGenres() {
+        const formattedGenres = this.state.genres.join(', ')
+        this.setState({genres: formattedGenres})
+        return <p>{this.state.genres}</p>
+    }
+
     render() {
         return (
             <section>
                 <div className='main-info'>
                     <h1>{this.state.title}</h1>
                     <div className='movie-details'>
-                        <p className='details'>Release Date</p>
-                        <p>Movie Genres</p>
+                        <p className='details'>{this.state.release_date}</p>
+                        {/* {this.getGenres()} */}
                     </div>
                     <div className='movie-details'>
-                        <p className='details'>Budget</p>
-                        <p className='details'>Revenue</p>
-                        <p>Run Time</p>
+                        {/* <p className='details'>Budget: ${this.state.budget.toLocaleString()}</p>
+                        <p className='details'>Revenue: ${this.state.revenue.toLocaleString()}</p> */}
+                        <p>Runtime: {this.state.runtime}</p>
                     </div>
                 </div>
                 <p className='summary'>
-                    sdkasdnkask ldankk sdlnkl nask lna snkdkandkna kdaka sasdkas 
+                    {this.state.overview} 
                 </p>
             </section>
         )
