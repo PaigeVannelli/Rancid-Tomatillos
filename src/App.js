@@ -14,12 +14,13 @@ class App extends Component {
         movies: []
       },
       view: 'mainPage', 
+      currentMovieId: 0,
       error: '',
     }
   }
 
   componentDidMount() {
-    fetch('https://rancid-tomatillos.herokuapp.com/api/v2/movis')
+    fetch('https://rancid-tomatillos.herokuapp.com/api/v2/movies')
     .then(response => response.json())
     .then(data => this.setState({movieData: data}))
     .catch(error => this.setState({error: error.message}))
@@ -38,11 +39,12 @@ class App extends Component {
   }
 
   goToMain = () => {
-    this.setState({view: 'mainPage'})
+    this.setState({view: 'mainPage', currentMovieId: 0})
   }
 
-  displayMovieDetails = () => {
-    this.setState({view: 'detailedView'})
+  displayMovieDetails = (id) => {
+    console.log(id)
+    this.setState({view: 'detailedView', currentMovieId: id})
   }
 
   render() {
