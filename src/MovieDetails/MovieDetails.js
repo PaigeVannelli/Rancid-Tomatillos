@@ -5,7 +5,17 @@ class MovieDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: props.id
+            id: props.id,
+            averageRating: 0,
+            budget: 0,
+            genres: [],
+            overview: '',
+            posterPath: '',
+            releaseDate: '',
+            revenue: 0,
+            runtime: 0,
+            tagline: '',
+            title: '',
         }
     }
 
@@ -16,9 +26,12 @@ class MovieDetails extends Component {
     }
 
     getGenres() {
-        const formattedGenres = this.state.genres.join(', ')
-        this.setState({genres: formattedGenres})
-        return <p>{this.state.genres}</p>
+        return this.state.genres.join(', ')
+        //Would we need to update state with this new info?
+    }
+
+    formatAmounts(amount) {
+        return amount.toLocaleString()
     }
 
     render() {
@@ -28,11 +41,12 @@ class MovieDetails extends Component {
                     <h1>{this.state.title}</h1>
                     <div className='movie-details'>
                         <p className='details'>{this.state.release_date}</p>
-                        {/* {this.getGenres()} */}
+                        {this.getGenres()}
                     </div>
                     <div className='movie-details'>
-                        {/* <p className='details'>Budget: ${this.state.budget.toLocaleString()}</p>
-                        <p className='details'>Revenue: ${this.state.revenue.toLocaleString()}</p> */}
+                        <p className='details'>Budget: ${this.formatAmounts(this.state.budget)}</p>
+                        <p className='details'>Revenue: ${this.state.revenue.toLocaleString()}</p>
+                        //Do we want to call the format amounts function or use toLocaleString in the render?
                         <p>Runtime: {this.state.runtime}</p>
                     </div>
                 </div>
