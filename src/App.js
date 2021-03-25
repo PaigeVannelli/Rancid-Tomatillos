@@ -57,7 +57,7 @@ class App extends Component {
         {this.checkIfLoading()}
         {this.handleIfFailed()}
         {this.state.view === 'mainPage' && <Movies movieData={this.state.movieData} displayMovieDetails={this.displayMovieDetails}/>}
-        {this.state.view === 'detailedView' && <MovieDetails />}
+        {this.state.view === 'detailedView' && <MovieDetails id={this.state.currentMovieId}/>}
       </main>
     );
   }
