@@ -3,8 +3,7 @@ section {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    color: white;
-    background-image: url('https://image.tmdb.org/t/p/original//x4UkhIQuHIJyeeOTdcbZ3t3gBSa.jpg');
+    background:  linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('https://image.tmdb.org/t/p/original//x4UkhIQuHIJyeeOTdcbZ3t3gBSa.jpg') no-repeat center center fixed;
     background-size: cover;
 }
 

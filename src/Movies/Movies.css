@@ -3,6 +3,9 @@
 .all-movies {
     display: flex;
     flex-wrap: wrap;
+    height: fit-content;
     justify-content: center;
     background-image: none;
+    margin: 0px 50px 0px 50px;
+    padding-bottom: 10px;
 }

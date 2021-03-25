@@ -1,14 +1,20 @@
-html {
-  background-color: rgb(52, 52, 52);
-  overflow: hidden;
+*{
+  color: white;
 }
 
-html, body, #root, .main-page{
+html {
+  height: 100%;
+  background-color: rgb(52, 52, 52);
+}
+
+body, #root, .main-page{
   height: 100%;
 }
 
 nav {
-  margin-left: 30px;
+  width: 100%;
+  margin-left: 20px;
+  position: fixed;
 }
 
 button {
@@ -17,7 +23,7 @@ button {
 
 
 .main-logo {
-  background-color: rgb(52, 52, 52);
+  background-color: transparent;
   height: 100px;
   width: auto;
   border: none;
@@ -31,3 +37,4 @@ button {
 #blockColorblindContent {
   display: none;
 }
+
