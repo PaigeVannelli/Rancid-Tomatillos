@@ -2,11 +2,10 @@ import React from 'react'
 import Poster from '../Poster/Poster.js'
 import './Movies.css'
 
-const Movies = ({movieData}) => {
-    console.log(movieData.movies)
-    const allMovies = movieData.movies.map(movie => {
+const Movies = (props) => {
+    const allMovies = props.movieData.movies.map(movie => {
         return (
-            <Poster image={movie.poster_path} key={movie.id} />
+            <Poster image={movie.poster_path} key={movie.id} displayMovieDetails={props.displayMovieDetails}/>
         )
     })
     return (

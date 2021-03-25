@@ -1,9 +1,29 @@
-.main-page {
+*{
+  color: white;
+}
+
+html {
+  height: 100%;
   background-color: rgb(52, 52, 52);
 }
 
+body, #root, .main-page{
+  height: 100%;
+}
+
+nav {
+  width: 100%;
+  margin-left: 20px;
+  position: fixed;
+}
+
+button {
+  outline: none;
+}
+
+
 .main-logo {
-  background-color: rgb(52, 52, 52);
+  background-color: transparent;
   height: 100px;
   width: auto;
   border: none;
@@ -17,3 +37,4 @@
 #blockColorblindContent {
   display: none;
 }
+
