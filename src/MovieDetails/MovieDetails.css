@@ -4,11 +4,17 @@ section {
     flex-direction: row;
     justify-content: space-evenly;
     color: white;
+    background-image: url('https://image.tmdb.org/t/p/original//x4UkhIQuHIJyeeOTdcbZ3t3gBSa.jpg');
+    background-size: cover;
 }
 
 h1 {
     font-size: 45px;
     margin: 5px 0px 5px 0px;
+}
+
+h1, p {
+    text-shadow: .5px .5px black ;
 }
 
 .main-info {

@@ -1,5 +1,6 @@
 html {
   background-color: rgb(52, 52, 52);
+  overflow: hidden;
 }
 
 html, body, #root, .main-page{
