@@ -6,6 +6,7 @@ class MovieDetails extends Component {
         super(props);
         this.state = {
             id: props.id,
+            backdrop_path: '',
             averageRating: 0,
             budget: 0,
             genres: [],
@@ -36,17 +37,18 @@ class MovieDetails extends Component {
 
     render() {
         return (
-            <section>
+            <section style={{background:
+            `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(${this.state.backdrop_path}) no-repeat center center fixed`
+            }}>
                 <div className='main-info'>
                     <h1>{this.state.title}</h1>
                     <div className='movie-details'>
                         <p className='details'>{this.state.release_date}</p>
-                        {this.getGenres()}
+                        <p>{this.getGenres()}</p>
                     </div>
                     <div className='movie-details'>
                         <p className='details'>Budget: ${this.formatAmounts(this.state.budget)}</p>
                         <p className='details'>Revenue: ${this.state.revenue.toLocaleString()}</p>
-                        //Do we want to call the format amounts function or use toLocaleString in the render?
                         <p>Runtime: {this.state.runtime}</p>
                     </div>
                 </div>
