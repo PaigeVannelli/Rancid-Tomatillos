@@ -1,6 +1,12 @@
-.main-page {
+html {
   background-color: rgb(52, 52, 52);
 }
+
+html, body, #root, .main-page{
+  height: 100%;
+}
+
+
 
 .main-logo {
   background-color: rgb(52, 52, 52);
