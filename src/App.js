@@ -14,6 +14,10 @@ class App extends Component {
     }
   }
 
+goToMain = () => {
+  this.setState({view: 'mainPage'})
+}
+
 displayMovieDetails = () => {
   this.setState({view: 'detailedView'})
 }
@@ -22,7 +26,7 @@ displayMovieDetails = () => {
     return (
       <main className='main-page'>
         <nav className='nav'>
-          <button className='main-logo'><img src={logo} className='movie-reel-logo'/>Rancid<br>
+          <button className='main-logo' onClick={this.goToMain}><img src={logo} className='movie-reel-logo'/>Rancid<br>
           </br>Tomatillos</button>
         </nav>
         {this.state.view === 'mainPage' && <Movies movieData={this.state.movieData} displayMovieDetails={this.displayMovieDetails}/>}
