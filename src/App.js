@@ -51,8 +51,7 @@ class App extends Component {
     return (
       <main className='main-page'>
         <nav className='nav'>
-          <button className='main-logo' onClick={this.goToMain}><img src={logo} className='movie-reel-logo'/>Rancid<br>
-          </br>Tomatillos</button>
+          <button className='main-logo' onClick={this.goToMain}><img src={logo} className='movie-reel-logo'/>Cinematic</button>
         </nav>
         {this.checkIfLoading()}
         {this.handleIfFailed()}

@@ -4,16 +4,20 @@ section {
     flex-direction: row;
     justify-content: space-evenly;
     background:  linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('https://image.tmdb.org/t/p/original//x4UkhIQuHIJyeeOTdcbZ3t3gBSa.jpg') no-repeat center center fixed;
-    background-size: cover;
+    background-size: cover !important;
 }
 
 h1 {
-    font-size: 45px;
+    font-size: 60px;
     margin: 5px 0px 5px 0px;
 }
 
 h1, p {
     text-shadow: .5px .5px black ;
+}
+
+p {
+    font-size: 22px;
 }
 
 .main-info {
