@@ -31,6 +31,10 @@ p {
     flex-direction: row;
 }
 
+.movies-div {
+    height: 100%;
+}
+
 .summary {
     align-self: center;
     width: 300px;
