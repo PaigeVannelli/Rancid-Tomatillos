@@ -56,9 +56,11 @@ class App extends Component {
   render() {
     return (
       <main className='main-page'>
+        <Link to='/'>
         <nav className='nav'>
           <button className='main-logo' onClick={this.goToMain}><img src={logo} className='movie-reel-logo' />Cinematic</button>
         </nav>
+        </Link>
         <Switch>
           <Route
             exact path='/'
