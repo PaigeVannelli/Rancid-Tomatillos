@@ -4,7 +4,7 @@ import './Poster.css'
 const Poster = (props) => {
     console.log(props)
     return (
-        <article className='poster' onClick={props.displayMovieDetails}>
+        <article className='poster' onClick={() => props.displayMovieDetails(props.id)}>
             <img className='poster-image' src={props.image} />
         </article>
     )

@@ -21,17 +21,31 @@ button {
   outline: none;
 }
 
-
 .main-logo {
   background-color: transparent;
   height: 100px;
   width: auto;
+  margin-top: 10px;
   border: none;
+  font-size: 25px;
+  display:flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.main-logo:hover {
+  cursor: pointer;
 }
 
 .movie-reel-logo {
-  height: 30px;
+  height: 50px;
   width: auto;
+}
+
+.error {
+  top: 0;
+  left: 0;
+  transform: translate(38%, 500%);
 }
 
 #blockColorblindContent {
