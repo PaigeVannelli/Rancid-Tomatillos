@@ -61,6 +61,8 @@ class App extends Component {
           <button className='main-logo' onClick={this.goToMain}><img src={logo} className='movie-reel-logo' />Cinematic</button>
         </nav>
         </Link>
+        {this.checkIfLoading()}
+        {this.handleIfFailed()}
         <Switch>
           <Route
             exact path='/'
@@ -74,15 +76,18 @@ class App extends Component {
             exact path='/:id'
             render={({ match }) => {
               const movie = this.state.movieData.movies.find(movie => {
-                return movie.id === parseInt(match.params.id);
+                console.log(match.params.id)
+                return movie.id === parseInt(match.params.id.substring(1));
               })
+              if(!movie) {
+                return (<p className='error'>This Movie Doesn't Exist!</p>)
+              }
               return (
                 <MovieDetails id={match.params.id.substring(1)}/>
               )
             }}
           />
-          {/* {this.checkIfLoading()}
-        {this.handleIfFailed()} */}
+
           {/* {this.state.view === 'mainPage' && <Movies movieData={this.state.movieData} displayMovieDetails={this.displayMovieDetails}/>}
         {this.state.view === 'detailedView' && <MovieDetails id={this.state.currentMovieId}/>} */}
         </Switch>
