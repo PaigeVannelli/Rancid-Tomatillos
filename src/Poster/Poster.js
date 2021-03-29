@@ -1,12 +1,15 @@
 import React from 'react'
 import './Poster.css'
+import { Link } from 'react-router-dom';
 
 const Poster = (props) => {
     console.log(props)
     return (
-        <article className='poster' onClick={() => props.displayMovieDetails(props.id)}>
-            <img className='poster-image' src={props.image} />
-        </article>
+        <Link to={`/:${props.id}`}>
+            <article className='poster' onClick={() => props.displayMovieDetails(props.id)}>
+                <img className='poster-image' src={props.image} />
+            </article>
+        </Link>
     )
 }
 
