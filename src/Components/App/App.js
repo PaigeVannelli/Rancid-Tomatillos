@@ -1,9 +1,9 @@
-import movieData from './movieData.js';
+import movieData from '../../movieData.js';
 import React, { Component } from 'react';
-import Movies from './Movies/Movies.js'
-import MovieDetails from './MovieDetails/MovieDetails.js'
+import Movies from '../Movies/Movies.js'
+import MovieDetails from '../MovieDetails/MovieDetails.js'
 import './App.css'
-import logo from './logo.svg'
+import logo from '../../logo.svg'
 import {
   BrowserRouter as Router,
   Switch,
