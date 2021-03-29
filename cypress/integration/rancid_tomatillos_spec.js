@@ -23,12 +23,28 @@ describe('Inital page view', () => {
         .contains('Cinematic')
     })
 
-    it('Should display all movie potsers on main page', () => {
-        // cy.get('a')
-        // .get('[href="/:694919"]')
-        // .get('article')
-        // .should('be.visible')
-        // .find('img')
-        // .should('include', ['https://image.tmdb.org/t/p/original//6CoRTJTmijhBLJTUNoVSUNxZMEI.jpg'])
+    it('Should display all movie posters on main page', () => {
+        cy.get('section').children().should('have.length', 3)
     })
 })
+
+describe('Detailed poster view', () => {
+    it('Should be able to click on a specific movie and see more details', () => {
+        cy
+        .get('a')
+        .get('[href="/:694919"]')
+        .click()
+        cy.fixture('details.json')
+        .then(details => {
+            cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movies/694919', {
+                statusCode: 200,
+                body: details
+            })
+        })
+    })
+
+    // it('Should display all movie posters on main page', () => {
+    //     cy.get('section').children().should('have.length', 3)
+    // })
+})
+
