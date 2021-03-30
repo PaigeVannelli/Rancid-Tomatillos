@@ -81,7 +81,6 @@ class App extends Component {
   }
 
   displayMovieDetails = (id) => {
-    console.log(id)
     this.setState({ view: 'detailedView', currentMovieId: id })
   }
 

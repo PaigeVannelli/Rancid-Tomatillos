@@ -45,3 +45,7 @@ p {
     padding-right: 8px;
     margin-right: 8px;
 }
+
+.youtube-video {
+    align-self: center;
+}
