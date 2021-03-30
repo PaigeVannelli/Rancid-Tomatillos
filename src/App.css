@@ -21,6 +21,10 @@ nav {
   align-items: center;
 }
 
+form {
+  margin-right:60px;
+}
+
 button {
   outline: none;
 }
@@ -50,13 +54,18 @@ button {
 .search-bar {
   height: 15px;
   width: 150px;
-  margin-right: 60px;
+  margin:0px;
   color: black;
 }
+
 .error {
   top: 0;
   left: 0;
   transform: translate(38%, 500%);
+}
+
+.search-button {
+  margin: 0px;
 }
 
 #blockColorblindContent {
