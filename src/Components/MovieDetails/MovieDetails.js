@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './MovieDetails.css'
-import Youtube from '../Components/Youtube/Youtube.js'
+import Youtube from '../../Components/Youtube/Youtube.js'
 
 class MovieDetails extends Component {
     constructor(props) {
@@ -24,8 +24,8 @@ class MovieDetails extends Component {
     }
 
     componentDidMount() {
-        this.fetchAllData();
         this.fetchVideoData();
+        this.fetchAllData();
         // .then
     }
 

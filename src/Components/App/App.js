@@ -1,9 +1,9 @@
-import movieData from './movieData.js';
+import movieData from '../../movieData.js';
 import React, { Component } from 'react';
-import Movies from './Movies/Movies.js'
-import MovieDetails from './MovieDetails/MovieDetails.js'
+import Movies from '../Movies/Movies.js'
+import MovieDetails from '../MovieDetails/MovieDetails.js'
 import './App.css'
-import logo from './logo.svg'
+import logo from '../../logo.svg'
 import {
   BrowserRouter as Router,
   Switch,
@@ -108,7 +108,6 @@ class App extends Component {
             exact path='/:id'
             render={({ match }) => {
               const movie = this.state.movieData.movies.find(movie => {
-                console.log(match.params.id)
                 return movie.id === parseInt(match.params.id.substring(1));
               })
               if(!movie) {
