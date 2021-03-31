@@ -1,7 +1,7 @@
 .poster {
     margin: 15px 30px 15px 30px;
     box-shadow: 0 4px 8px 0 ivory;
-    height: 200px;
+    height: 233px;
 }
 
 .poster:hover {
@@ -10,8 +10,8 @@
 }
 
 .poster-image {
-    height: 200px;
-    width: 140px;
+    height: 233px;
+    width: 160px;
 }
 
 .poster-image:hover {

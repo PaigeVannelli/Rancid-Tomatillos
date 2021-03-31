@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './MovieDetails.css'
+import Youtube from '../Components/Youtube/Youtube.js'
 
 class MovieDetails extends Component {
     constructor(props) {
@@ -18,14 +19,27 @@ class MovieDetails extends Component {
             tagline: '',
             title: '',
             error: '',
+            embededId: '',
         }
     }
 
     componentDidMount() {
-        fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/movies/${this.state.id}`)
+        this.fetchAllData();
+        this.fetchVideoData();
+        // .then
+    }
+
+    fetchAllData() {
+        let movieData = fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/movies/${this.state.id}`)
         .then(response => response.json())
         .then(data => this.setState(data.movie))
-        .catch(error => this.setState({error: error.message}))
+        .catch(error => this.setState({ error: error.message }))
+    }
+
+    fetchVideoData() {
+        fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/movies/${this.state.id}/videos`)
+        .then(response => response.json())
+        .then(data => this.setState({embededId: data.videos[0].key}))
     }
 
     getGenres() {
@@ -47,6 +61,7 @@ class MovieDetails extends Component {
             return <h1 className='error'>Failed to load</h1>
         }
     }
+    
 
     render() {
         return (
@@ -54,8 +69,9 @@ class MovieDetails extends Component {
                 {this.checkIfLoading()}
                 {this.handleIfFailed()}
                 {(!this.state.error && this.state.title) &&
-                    <section style={{background:
-                    `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(${this.state.backdrop_path}) no-repeat center center fixed`
+                    <section style={{
+                        background:
+                            `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(${this.state.backdrop_path}) no-repeat center center fixed`
                     }}>
                         <div className='main-info'>
                             <h1>{this.state.title}</h1>
@@ -67,11 +83,12 @@ class MovieDetails extends Component {
                                 <p className='details'>Budget: ${this.formatAmounts(this.state.budget)}</p>
                                 <p className='details'>Revenue: ${this.state.revenue.toLocaleString()}</p>
                                 <p>Runtime: {this.state.runtime}</p>
+                                <p>{this.state.overview} </p>
                             </div>
                         </div>
-                        <p className='summary'>
-                            {this.state.overview} 
-                        </p>
+                        <div className='youtube-video'>
+                            <Youtube embededId={this.state.embededId}/>
+                        </div>
                     </section>
                 }
             </div>

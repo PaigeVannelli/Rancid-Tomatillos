@@ -3,7 +3,6 @@ import './Poster.css'
 import { Link } from 'react-router-dom';
 
 const Poster = (props) => {
-    console.log(props)
     return (
         <Link to={`/:${props.id}`}>
             <article className='poster' onClick={() => props.displayMovieDetails(props.id)}>
