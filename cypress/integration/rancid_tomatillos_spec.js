@@ -51,6 +51,7 @@ describe('Detailed poster view', () => {
                 body: details
             })
         })
+        cy.wait(1000)
         cy.get('h1').contains('Money Plane')
     })
 })
@@ -85,8 +86,16 @@ describe('Movie Filtering', () => {
 
     it('Should show all movies when the search bar is clear', () => {
        cy.get('input')
-       .type('')
+       .clear()
        cy.get('[data-cy=search-button]')
+       .click()
+       cy.get('section').children().should('have.length', 3)
+    })
+
+    it('Should show all movies when the search bar is clear', () => {
+       cy.get('input')
+       .clear()
+       cy.get('[data-cy=home-button]')
        .click()
        cy.get('section').children().should('have.length', 3)
     })

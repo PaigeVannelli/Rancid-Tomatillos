@@ -32,9 +32,13 @@ class App extends Component {
     fetch('https://rancid-tomatillos.herokuapp.com/api/v2/movies')
       .then(response => response.json())
       .then(data => this.setState({ movieData: data }))
-      // .then(data => this.setState({ displayedMovies: data }))
-      .then(data => this.setState({ displayedMovies: movieData.movies }))
+      .then(() => this.getDisplayedMovies())
       .catch(error => this.setState({ error: error.message }))
+  }
+
+  getDisplayedMovies = () => {
+    let movies = this.state.movieData.movies
+    this.setState({ displayedMovies: movies })
   }
 
   handleChange = (event) => {
@@ -148,7 +152,13 @@ class App extends Component {
       <main className='main-page'>
         <Link to='/'>
         <nav className='nav'>
-          <button className='main-logo' onClick={this.goToMain}><img src={logo} className='movie-reel-logo' />Cinematic</button>
+          <button 
+          className='main-logo' 
+          onClick={this.goToMain}><img 
+          src={logo} 
+          className='movie-reel-logo' 
+          data-cy='home-button'
+          />Cinematic</button>
           {this.displaySearchBar()}
         </nav>
         </Link>
