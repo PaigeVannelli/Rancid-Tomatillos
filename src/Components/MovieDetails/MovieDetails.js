@@ -26,11 +26,11 @@ class MovieDetails extends Component {
 
     componentDidMount() {
         this.fetchAllData();
-        this.fetchVideoData();
+        // this.fetchVideoData();
     }
 
     fetchAllData() {
-        let movieData = fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/movies/${this.state.id}`)
+        fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/movies/${this.state.id}`)
         .then(response => response.json())
         .then(data => this.setState(data.movie))
         .catch(error => this.setState({ error: error.message }))

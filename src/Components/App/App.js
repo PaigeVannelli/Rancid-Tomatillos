@@ -30,15 +30,15 @@ class App extends Component {
 
   componentDidMount = () => {
     fetch('https://rancid-tomatillos.herokuapp.com/api/v2/movies')
-      .then(res => {
-        if (!res.ok) {
-          console.log(res)
-        }
-      })
+      // .then(res => {
+      //   if (!res.ok) {
+      //     console.log(res)
+      //   }
+      // })
       .then(response => response.json())
       .then(data => this.setState({ movieData: data }))
       .then(() => this.getDisplayedMovies())
-      .catch(error => console.log(error.message))
+      // .catch(error => console.log(error.message))
       .catch(error => this.setState({ error: error.message }))
   }
 
@@ -160,11 +160,12 @@ class App extends Component {
         <nav className='nav'>
           <button 
           className='main-logo' 
-          onClick={this.goToMain}><img 
-          src={logo} 
-          className='movie-reel-logo' 
-          data-cy='home-button'
-          />Cinematic</button>
+          onClick={this.goToMain}>
+            <img 
+            src={logo} 
+            className='movie-reel-logo' 
+            data-cy='home-button'
+            />Cinematic</button>
           {this.displaySearchBar()}
         </nav>
         </Link>
@@ -185,13 +186,13 @@ class App extends Component {
             render={({ match }) => {
               // {this.findMovie(match)}
               const movie = this.state.movieData.movies.find(movie => {
-                return movie.id === parseInt(match.params.id.substring(1));
+                return movie.id === parseInt(match.params.id);
               })
               if(!movie) {
                 return (<p className='error'>This Movie Doesn't Exist!</p>)
               }
               return (
-                <MovieDetails id={match.params.id.substring(1)}/>
+                <MovieDetails id={match.params.id}/>
               )
             }}
           />

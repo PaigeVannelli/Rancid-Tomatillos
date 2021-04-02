@@ -30,28 +30,47 @@ describe('Inital page view', () => {
 
 describe('Detailed poster view', () => {
     beforeEach(() => {
-        // cy.fixture('movie.json')
-        // .then(movieData => {
-        //     cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movies', {
-        //         statusCode: 200,
-        //         body: movieData
-        //     })
-        // })
+        cy.fixture('movie.json')
+        .then(movieData => {
+            cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movies', {
+                statusCode: 200,
+                body: movieData
+            })
+        })
+        .then(() => {
+            cy.fixture('details.json')
+            .then(movieDetails => {
+                cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movie/694919', {
+                    statusCode: 200,
+                    body: movieDetails
+                })
+            })
+        })
+        .then(() => {
+            cy.fixture('video.json')
+            .then(videoDetails => {
+                cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movie/694919/videos', {
+                    statusCode: 200,
+                    body: videoDetails
+                })
+            })
+        })
         cy.visit('http://localhost:3000/') 
     })
 
-    it('Should be able to click on a specific movie and see more details', () => {
+    it.only('Should be able to click on a specific movie and see more details', () => {
         cy.get('a')
-        .get('[href="/:694919"]')
+        .get('[href="/694919"]')
         .click()
-        cy.fixture('details.json')
-        .then(details => {
-            cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movie/694919', {
-                statusCode: 200,
-                body: details
-            })
-        })
-        cy.wait(1000)
+        // cy.fixture('details.json')
+        // .then(details => {
+        //     cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movie/694919', {
+        //         statusCode: 200,
+        //         body: details
+        //     })
+        // })
+        // cy.visit('http://localhost:3000/694919')
+        cy.wait(5000)
         cy.get('h1').contains('Money Plane')
     })
 })
@@ -148,22 +167,5 @@ describe('Error Messages', () => {
 //check if it can go back a page cy.go('back')
 
 
-//         cy
-//         .get('a')
-//         .get('[href="/:694919"]')
-//         .click()
-//         cy.fixture('details.json')
-//         .then(details => {
-//             cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movies/694919', {
-//                 statusCode: 200,
-//                 body: details
-//             })
-//         })
-//         // cy.contains('Money Plane')
-//     })
 
-    // it('Should display all movie posters on main page', () => {
-    //     cy.get('section').children().should('have.length', 3)
-    // })
-// })
 
