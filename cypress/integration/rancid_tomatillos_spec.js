@@ -92,13 +92,52 @@ describe('Movie Filtering', () => {
        cy.get('section').children().should('have.length', 3)
     })
 
-    it('Should show all movies when the search bar is clear', () => {
+    it('Should show all movies when the home button is clicked', () => {
        cy.get('input')
        .clear()
        cy.get('[data-cy=home-button]')
        .click()
        cy.get('section').children().should('have.length', 3)
     })
+})
+
+// describe('Video Display', () => {
+//     beforeEach(() => {
+//         cy.fixture('video.json')
+//         .then(videoData => {
+//             cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movies/694919/videos', {
+//                 statusCode: 200,
+//                 body: videoData
+//             })
+//         })
+//         cy.visit('http://localhost:3000/:694919') 
+//         cy.wait(1000)
+//     })
+
+//     it('Should show a movie trailer when viewing movie details', () => {
+//         cy.get('a')
+//         .contains('MONEY PLANE')
+//      })
+// })
+
+describe('Error Messages', () => {
+    beforeEach(() => {
+        cy.fixture('video.json')
+        .then(() => {
+            cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movies', {
+                statusCode: 200,
+                body: {
+                    message: 'Error data not found'
+                }
+            })
+        })
+        cy.visit('http://localhost:3000/') 
+    })
+
+    it('Should show a movie trailer when viewing movie details', () => {
+        // cy.get('a')
+        // .contains('MONEY PLANE')
+     })
 })
 
 //check filtering 
