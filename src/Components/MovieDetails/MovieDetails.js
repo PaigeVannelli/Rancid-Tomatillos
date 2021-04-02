@@ -31,15 +31,15 @@ class MovieDetails extends Component {
 
     fetchAllData() {
         let movieData = fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/movies/${this.state.id}`)
-        .then(response => response.json())
-        .then(data => this.setState(data.movie))
-        .catch(error => this.setState({ error: error.message }))
+            .then(response => response.json())
+            .then(data => this.setState(data.movie))
+            .catch(error => this.setState({ error: error.message }))
     }
 
     fetchVideoData() {
         fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/movies/${this.state.id}/videos`)
-        .then(response => response.json())
-        .then(data => this.setState({embededId: data.videos[0].key}))
+            .then(response => response.json())
+            .then(data => this.setState({ embededId: data.videos[0].key }))
     }
 
     getGenres() {
@@ -61,7 +61,7 @@ class MovieDetails extends Component {
             return <h1 className='error'>Failed to load</h1>
         }
     }
-    
+
 
     render() {
         return (
@@ -83,11 +83,11 @@ class MovieDetails extends Component {
                                 <p className='details'>Budget: ${this.formatAmounts(this.state.budget)}</p>
                                 <p className='details'>Revenue: ${this.state.revenue.toLocaleString()}</p>
                                 <p>Runtime: {this.state.runtime}</p>
-                                <p>{this.state.overview} </p>
                             </div>
+                            <p>{this.state.overview} </p>
                         </div>
                         <div className='youtube-video'>
-                            <Youtube embededId={this.state.embededId}/>
+                            <Youtube embededId={this.state.embededId} />
                         </div>
                     </section>
                 }
