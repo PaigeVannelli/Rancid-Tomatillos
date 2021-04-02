@@ -1,12 +1,11 @@
 import PropTypes from 'prop-types';
 import { Component } from 'react';
-// import React, { Component } from 'react'
+
 
 class Youtube extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
         }
     }
 
@@ -27,3 +26,4 @@ class Youtube extends Component {
     }
 }
 export default Youtube; 
+

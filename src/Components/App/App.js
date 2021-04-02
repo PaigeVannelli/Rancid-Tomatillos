@@ -88,7 +88,22 @@ class App extends Component {
   }
   
 
-  displaySearchBar = () => {
+  handleChange(event) {
+    this.setState({searchValue: event.target.value})
+  }
+  
+  filterByTitle = () => {
+    const filteredMovies = this.state.movieData.movies.filter(movie => {
+      return movie.title.toLowerCase().includes(this.state.searchValue.toLowerCase())
+    })
+    if (this.state.searchValue) {
+      this.setState({displayedMovies: filteredMovies})
+    } else {
+      this.setState({displayedMovies: movieData.movies})
+    }
+  }
+
+ displaySearchBar = () => {
     if (this.state.view === 'mainPage') {
       return( <form>
         <input type='search' 

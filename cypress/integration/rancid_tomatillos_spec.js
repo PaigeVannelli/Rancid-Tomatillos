@@ -1,10 +1,3 @@
-
-// describe('Feedback Loop', () => {
-//     it('Should confirm that true is equal to true', () => {
-//       expect(true).to.equal(true)
-//     });
-//   });
-
 describe('Inital page view', () => {
     beforeEach(() => {
         cy.fixture('movie.json')
@@ -23,10 +16,9 @@ describe('Inital page view', () => {
     })
 
     it('Should display all movie posters on main page', () => {
-        cy.get('section').children().should('have.length', 3)
+        cy.get('section').children().should('have.length', 40)
     })
 })
-
 
 describe('Detailed poster view', () => {
     beforeEach(() => {

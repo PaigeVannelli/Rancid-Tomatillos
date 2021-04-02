@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import './MovieDetails.css'
 import Youtube from '../../Components/Youtube/Youtube.js'
 
-
 class MovieDetails extends Component {
     constructor(props) {
         super(props);
@@ -36,12 +35,12 @@ class MovieDetails extends Component {
         .catch(error => this.setState({ error: error.message }))
     }
 
+
     fetchVideoData() {
         fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/movies/${this.state.id}/videos`)
         .then(response => response.json())
         .then(data => this.setState({embededId: data.videos[0].key}))
     }
-
 
     // componentDidMount() {
     //     fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/movies/${this.state.id}`)
@@ -69,6 +68,7 @@ class MovieDetails extends Component {
             return <h1 className='error'>Failed to load</h1>
         }
     }
+    
 
     render() {
         return (
