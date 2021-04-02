@@ -24,23 +24,30 @@ class MovieDetails extends Component {
     }
 
     componentDidMount() {
-        this.fetchVideoData();
         this.fetchAllData();
-        // .then
+        // this.fetchVideoData();
     }
 
     fetchAllData() {
-        let movieData = fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/movies/${this.state.id}`)
+        fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/movies/${this.state.id}`)
         .then(response => response.json())
         .then(data => this.setState(data.movie))
         .catch(error => this.setState({ error: error.message }))
     }
+
 
     fetchVideoData() {
         fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/movies/${this.state.id}/videos`)
         .then(response => response.json())
         .then(data => this.setState({embededId: data.videos[0].key}))
     }
+
+    // componentDidMount() {
+    //     fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/movies/${this.state.id}`)
+    //     .then(response => response.json())
+    //     .then(data => this.setState(data.movie))
+    //     .catch(error => this.setState({error: error.message}))
+    // }
 
     getGenres() {
         return this.state.genres.join(', ')
@@ -69,7 +76,7 @@ class MovieDetails extends Component {
                 {this.checkIfLoading()}
                 {this.handleIfFailed()}
                 {(!this.state.error && this.state.title) &&
-                    <section style={{
+                     <section style={{
                         background:
                             `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(${this.state.backdrop_path}) no-repeat center center fixed`
                     }}>

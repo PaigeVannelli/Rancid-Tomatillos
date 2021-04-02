@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Component } from 'react';
+
 
 class Youtube extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            
         }
     }
 
@@ -21,8 +21,9 @@ class Youtube extends Component {
                     allowFullScreen
                     title="Embedded youtube"
                   />
-                </div>
+            </div>
         )
     }
 }
-export default Youtube;
+export default Youtube; 
+
