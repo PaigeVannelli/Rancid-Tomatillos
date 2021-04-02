@@ -38,6 +38,7 @@
     ]
   },
   "devDependencies": {
-    "cypress": "^6.8.0"
+    "cypress": "^6.8.0",
+    "cypress-react-unit-test": "^4.17.2"
   }
 }
