@@ -1,6 +1,6 @@
 .poster {
     margin: 15px 30px 15px 30px;
-    box-shadow: 0 4px 8px 0 ivory;
+    box-shadow: rgba(0, 0, 0, 0.8) 0px 1px 15px 0px;
     height: 233px;
 }
 
@@ -17,9 +17,10 @@
 .poster-image:hover {
     transform: scale(1.1);
     transition: .2s ease-in-out;
+    box-shadow: rgba(0, 0, 0, 0.8) 0px 1px 15px 0px;
 }
 
 .poster-image::after {
     transform: scale(1.1);
-    transition: .2s ease-in-out;
+    transition: .5s ease-in-out;
 }
