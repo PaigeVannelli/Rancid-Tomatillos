@@ -21,6 +21,7 @@ p {
 }
 
 .main-info {
+    width: 585px;
     align-self: center;
     display: flex;
     flex-direction: column;

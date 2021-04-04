@@ -4,6 +4,7 @@ import Movies from '../Movies/Movies.js'
 import MovieDetails from '../MovieDetails/MovieDetails.js'
 import './App.css'
 import logo from '../../logo.svg'
+import search from '../../search.png'
 import {
   BrowserRouter as Router,
   Switch,
@@ -30,15 +31,9 @@ class App extends Component {
 
   componentDidMount = () => {
     fetch('https://rancid-tomatillos.herokuapp.com/api/v2/movies')
-      // .then(res => {
-      //   if (!res.ok) {
-      //     console.log(res)
-      //   }
-      // })
       .then(response => response.json())
       .then(data => this.setState({ movieData: data }))
       .then(() => this.getDisplayedMovies())
-      // .catch(error => console.log(error.message))
       .catch(error => this.setState({ error: error.message }))
   }
 
@@ -91,28 +86,17 @@ class App extends Component {
   handleChange(event) {
     this.setState({searchValue: event.target.value})
   }
-  
-  filterByTitle = () => {
-    const filteredMovies = this.state.movieData.movies.filter(movie => {
-      return movie.title.toLowerCase().includes(this.state.searchValue.toLowerCase())
-    })
-    if (this.state.searchValue) {
-      this.setState({displayedMovies: filteredMovies})
-    } else {
-      this.setState({displayedMovies: movieData.movies})
-    }
-  }
 
  displaySearchBar = () => {
     if (this.state.view === 'mainPage') {
       return( <form>
-        <input type='search' 
+        <input type='text' 
       className='search-bar' 
       value={this.state.searchValue}
       placeholder='Search for a movie'
       onChange={(event) => this.handleChange(event)}>
       </input>
-      <button className='search-button' onClick={this.filterByTitle} data-cy='search-button'>Search</button>
+      <button className='search-button' onClick={this.filterByTitle}><img className='search-logo' src={search}></img></button>
       </form>
       )
     }

@@ -58,6 +58,8 @@ button {
   width: 150px;
   margin:0px;
   color: black;
+  border-width: 0px;
+  border-radius: 6px;
 }
 
 .error {
@@ -70,7 +72,17 @@ button {
   color: black;
   height: 15px;
   margin: 0px;
-  padding:0px;
+  padding: 0px;
+  position: absolute;
+  border-width: 0px;
+  right: 65px;
+  top: 48px;
+}
+
+.search-logo{
+  height: 10px;
+  background-color: white;
+  cursor: pointer;
 }
 
 #blockColorblindContent {
