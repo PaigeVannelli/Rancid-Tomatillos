@@ -2,6 +2,7 @@ import movieData from '../../movieData.js';
 import React, { Component } from 'react';
 import Movies from '../Movies/Movies.js'
 import MovieDetails from '../MovieDetails/MovieDetails.js'
+import {fetchAllMovies} from '../../APICalls'
 import './App.css'
 import logo from '../../logo.svg'
 import {
@@ -15,7 +16,6 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      // movieData: movieData,
       movieData: {
         movies: []
       },
@@ -29,16 +29,14 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-    fetch('https://rancid-tomatillos.herokuapp.com/api/v2/movies')
-      // .then(res => {
-      //   if (!res.ok) {
-      //     console.log(res)
-      //   }
-      // })
-      .then(response => response.json())
-      .then(data => this.setState({ movieData: data }))
-      .then(() => this.getDisplayedMovies())
-      // .catch(error => console.log(error.message))
+    // fetch('https://rancid-tomatillos.herokuapp.com/api/v2/movies')
+    //   .then(response => response.json())
+      fetchAllMovies()
+      .then(data => this.setState({ movieData: data, displayedMovies: data.movies }))
+      // .then(data => this.setState({ movieData: data }, () => {
+      //   this.getDisplayedMovies();
+      // }))
+      // .then(() => this.getDisplayedMovies())
       .catch(error => this.setState({ error: error.message }))
   }
 
@@ -125,7 +123,7 @@ class App extends Component {
   }
 
   checkIfLoading = () => {
-    if (!this.state.movieData.movies.length && !this.state.error && !this.state.searchValueInput) {
+    if (this.state.movieData?.movies.length === 0 && !this.state.error && !this.state.searchValueInput) {
       return <h1 className='error'>Loading...</h1>
     }
   }
