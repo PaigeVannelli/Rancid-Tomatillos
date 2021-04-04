@@ -26,7 +26,6 @@ export const fetchMovieDetails = (movieId) => {
             let allData = {}
             allData.movieDetails = data[0].movie;
             allData.videoDetails = data[1].videos;
-            console.log(allData)
             return allData;
         });
 }

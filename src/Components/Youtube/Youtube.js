@@ -13,6 +13,7 @@ class Youtube extends Component {
         return (
             <div className='video-responsive'>
                 <iframe
+                    data-cy='video'
                     width='654'
                     height='380'
                     src={`https://www.youtube.com/embed/${this.props.embededId}`}

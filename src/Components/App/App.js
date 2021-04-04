@@ -71,16 +71,17 @@ class App extends Component {
     this.setState({searchValue: event.target.value})
   }
   
-  filterByTitle = () => {
-    const filteredMovies = this.state.movieData.filter(movie => {
-      return movie.title.toLowerCase().includes(this.state.searchValue.toLowerCase())
-    })
-    if (this.state.searchValue) {
-      this.setState({displayedMovies: filteredMovies})
-    } else {
-      this.setState({displayedMovies: movieData})
-    }
-  }
+  // filterByTitle = () => {
+  //   console.log("test")
+  //   const filteredMovies = this.state.movieData.filter(movie => {
+  //     return movie.title.toLowerCase().includes(this.state.searchValue.toLowerCase())
+  //   })
+  //   if (this.state.searchValue) {
+  //     this.setState({displayedMovies: filteredMovies})
+  //   } else {
+  //     this.setState({displayedMovies: movieData})
+  //   }
+  // }
 
  displaySearchBar = () => {
     if (this.state.view === 'mainPage') {
@@ -104,7 +105,7 @@ class App extends Component {
   }
 
   checkIfLoading = () => {
-    if (this.state?.movieData.length === 0 && !this.state.error && !this.state.searchValueInput) {
+    if (!this.state.movieData.length && !this.state.error && !this.state.searchValueInput) {
       return <h1 className='error'>Loading...</h1>
     }
   }
