@@ -28,24 +28,18 @@ class MovieDetails extends Component {
         return amount.toLocaleString()
     }
 
-    checkIfLoading() {
-        if (!this.state.movieDetails.title && !this.state.error) {
+    checkForErrors = () => {
+        if (this.state.error) {
+            return <h1 className='error'>Error loading movies. Please try again later</h1>
+        } else if (!this.state.movieDetails.title && !this.state.error) {
             return <h1 className='error'>Loading...</h1>
         }
     }
 
-    handleIfFailed() {
-        if (this.state.error) {
-            return <h1 className='error'>Failed to load</h1>
-        }
-    }
-    
-
     render() {
         return (
             <div className='movies-div'>
-                {this.checkIfLoading()}
-                {this.handleIfFailed()}
+                {this.checkForErrors()}
                 {(!this.state.error && this.state.movieDetails.title) &&
                      <section style={{
                         background:

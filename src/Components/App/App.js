@@ -98,23 +98,32 @@ class App extends Component {
     }
   }
 
-  handleIfFailed = () => {
+  checkForErrors = () => {
     if (this.state.error) {
-      return <h1 className='error'>Failed to load</h1>
-    }
-  }
-
-  checkIfLoading = () => {
-    if (!this.state.movieData.length && !this.state.error && !this.state.searchValueInput) {
+      return <h1 className='error'>Error loading movies. Please try again later</h1>
+    } else if (this.state.movieData?.length === 0  && !this.state.error && !this.state.searchValueInput) {
       return <h1 className='error'>Loading...</h1>
-    }
-  }
-
-  checkSearchSuccess = () => {
-    if (!this.state.movieData.length && !this.state.error && this.state.searchValueInput) {
+    } else if (this.state.movieData?.length === 0 && !this.state.error && this.state.searchValueInput) {
       return <h1 className='error'>No movies found. Try broadening your search.</h1>
     }
   }
+  // handleIfFailed = () => {
+  //   if (this.state.error) {
+  //     return <h1 className='error'>Failed to load</h1>
+  //   }
+  // }
+
+  // checkIfLoading = () => {
+  //   if (!this.state.movieData.length && !this.state.error && !this.state.searchValueInput) {
+  //     return <h1 className='error'>Loading...</h1>
+  //   }
+  // }
+
+  // checkSearchSuccess = () => {
+  //   if (!this.state.movieData.length && !this.state.error && this.state.searchValueInput) {
+  //     return <h1 className='error'>No movies found. Try broadening your search.</h1>
+  //   }
+  // }
 
   goToMain = () => {
     this.setState({ view: 'mainPage', currentMovieId: 0, searchValue: '', searchValueInput: '' })
@@ -164,16 +173,19 @@ class App extends Component {
           {this.displaySearchBar()}
         </nav>
         </Link>
-        {this.checkIfLoading()}
+        {/* {this.checkIfLoading()}
         {this.handleIfFailed()}
-        {this.checkSearchSuccess()}
+        {this.checkSearchSuccess()} */}
+        {this.checkForErrors()}
         <Switch>
           <Route
             exact path='/'
             render={() => {
-              return (
-                <Movies movieData={this.state.movieData} displayMovieDetails={this.displayMovieDetails} />
-              )
+              // if(this.state.movieData) {
+                return (
+                  <Movies movieData={this.state.movieData} displayMovieDetails={this.displayMovieDetails} />
+                )
+              // }
             }}
           />
           <Route
