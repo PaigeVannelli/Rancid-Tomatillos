@@ -22,29 +22,23 @@ describe('Inital page view', () => {
 
 describe('Detailed poster view', () => {
     beforeEach(() => {
-        cy.fixture('movie.json')
-        .then(movieData => {
-            cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movies', {
-                statusCode: 200,
-                body: movieData
+        // cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movie/694919/videos', video)
+        // cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movies/694919', details)
+        // cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movies', movie)
+        cy.fixture('video.json')
+            .then(videoDetails => {
+                cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movie/694919/videos', videoDetails)
             })
-        })
         .then(() => {
             cy.fixture('details.json')
             .then(movieDetails => {
-                cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movie/694919', {
-                    statusCode: 200,
-                    body: movieDetails
-                })
+                cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movie/694919', movieDetails)
             })
         })
-        .then(() => {
-            cy.fixture('video.json')
-            .then(videoDetails => {
-                cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movie/694919/videos', {
-                    statusCode: 200,
-                    body: videoDetails
-                })
+        .then (() => {
+            cy.fixture('movie.json')
+            .then(movieData => {
+                cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movies', movieData)
             })
         })
         cy.visit('http://localhost:3000/') 
