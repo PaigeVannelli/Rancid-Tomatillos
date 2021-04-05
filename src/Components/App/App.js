@@ -2,6 +2,7 @@ import movieData from '../../movieData.js';
 import React, { Component } from 'react';
 import Movies from '../Movies/Movies.js'
 import MovieDetails from '../MovieDetails/MovieDetails.js'
+import {fetchAllMovies} from '../../APICalls'
 import './App.css'
 import logo from '../../logo.svg'
 import {
@@ -15,10 +16,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      // movieData: movieData,
-      movieData: {
-        movies: []
-      },
+      movieData: [],
       displayedMovies: [],
       view: 'mainPage',
       currentMovieId: 0,
@@ -29,21 +27,13 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-    fetch('https://rancid-tomatillos.herokuapp.com/api/v2/movies')
-      // .then(res => {
-      //   if (!res.ok) {
-      //     console.log(res)
-      //   }
-      // })
-      .then(response => response.json())
-      .then(data => this.setState({ movieData: data }))
-      .then(() => this.getDisplayedMovies())
-      // .catch(error => console.log(error.message))
+      fetchAllMovies()
+      .then(data => this.setState({ movieData: data.movies, displayedMovies: data.movies }))
       .catch(error => this.setState({ error: error.message }))
   }
 
   getDisplayedMovies = () => {
-    let movies = this.state.movieData.movies
+    let movies = this.state.movieData
     this.setState({ displayedMovies: movies })
   }
 
@@ -62,7 +52,7 @@ class App extends Component {
   }
 
   filterMovies = () => {
-    const filteredMovies = this.state.movieData.movies.filter(movie => {
+    const filteredMovies = this.state.movieData.filter(movie => {
       return movie.title.toLowerCase().includes(this.state.searchValue.toLowerCase())
     })
     this.displaySearchedTitles(filteredMovies)
@@ -70,38 +60,28 @@ class App extends Component {
 
   displaySearchedTitles = (filteredMovies) => {
     if (this.state.searchValue) {
-      this.setState(prevState => ({
-        movieData: {                 
-            ...prevState.movies,   
-            movies: filteredMovies       
-        }
-      }))
+      this.setState({movieData: filteredMovies})
     } else {
         const allMovies = this.state.displayedMovies
-        this.setState(prevState => ({
-          movieData: {                  
-              ...prevState.movies,    
-              movies: allMovies      
-          }
-      }))
+        this.setState({movieData: allMovies})
     }
   }
   
-
   handleChange(event) {
     this.setState({searchValue: event.target.value})
   }
   
-  filterByTitle = () => {
-    const filteredMovies = this.state.movieData.movies.filter(movie => {
-      return movie.title.toLowerCase().includes(this.state.searchValue.toLowerCase())
-    })
-    if (this.state.searchValue) {
-      this.setState({displayedMovies: filteredMovies})
-    } else {
-      this.setState({displayedMovies: movieData.movies})
-    }
-  }
+  // filterByTitle = () => {
+  //   console.log("test")
+  //   const filteredMovies = this.state.movieData.filter(movie => {
+  //     return movie.title.toLowerCase().includes(this.state.searchValue.toLowerCase())
+  //   })
+  //   if (this.state.searchValue) {
+  //     this.setState({displayedMovies: filteredMovies})
+  //   } else {
+  //     this.setState({displayedMovies: movieData})
+  //   }
+  // }
 
  displaySearchBar = () => {
     if (this.state.view === 'mainPage') {
@@ -118,33 +98,37 @@ class App extends Component {
     }
   }
 
-  handleIfFailed = () => {
+  checkForErrors = () => {
     if (this.state.error) {
-      return <h1 className='error'>Failed to load</h1>
-    }
-  }
-
-  checkIfLoading = () => {
-    if (!this.state.movieData.movies.length && !this.state.error && !this.state.searchValueInput) {
+      return <h1 className='error'>Error loading movies. Please try again later</h1>
+    } else if (this.state.movieData?.length === 0  && !this.state.error && !this.state.searchValueInput) {
       return <h1 className='error'>Loading...</h1>
-    }
-  }
-
-  checkSearchSuccess = () => {
-    if (!this.state.movieData.movies.length && !this.state.error && this.state.searchValueInput) {
+    } else if (this.state.movieData?.length === 0 && !this.state.error && this.state.searchValueInput) {
       return <h1 className='error'>No movies found. Try broadening your search.</h1>
     }
   }
+  // handleIfFailed = () => {
+  //   if (this.state.error) {
+  //     return <h1 className='error'>Failed to load</h1>
+  //   }
+  // }
+
+  // checkIfLoading = () => {
+  //   if (!this.state.movieData.length && !this.state.error && !this.state.searchValueInput) {
+  //     return <h1 className='error'>Loading...</h1>
+  //   }
+  // }
+
+  // checkSearchSuccess = () => {
+  //   if (!this.state.movieData.length && !this.state.error && this.state.searchValueInput) {
+  //     return <h1 className='error'>No movies found. Try broadening your search.</h1>
+  //   }
+  // }
 
   goToMain = () => {
     this.setState({ view: 'mainPage', currentMovieId: 0, searchValue: '', searchValueInput: '' })
     const allMovies = this.state.displayedMovies
-    this.setState(prevState => ({
-      movieData: {                  
-          ...prevState.movies,    
-          movies: allMovies      
-      }
-    }))
+    this.setState(prevState => ({movieData: allMovies}))
   }
 
   displayMovieDetails = (id) => {
@@ -152,10 +136,15 @@ class App extends Component {
   }
 
   // findMovie = (match) => {
-  //   const movie = this.state.movieData.movies.find(movie => {
-  //     return movie.id === parseInt(match.params.id.substring(1));
-  //   })
-  //   this.checkIfMovieExists(match, movie)
+  //    const movie = this.state.movieData.find(movie => {
+  //       return movie.id === parseInt(match.params.id);
+  //     })
+  //     if(!movie) {
+  //       return (<p className='error'>This Movie Doesn't Exist!</p>)
+  //     }
+  //     return (
+  //       <MovieDetails id={match.params.id}/>
+  //     )
   // }
 
   // checkIfMovieExists = (match, movie) => {
@@ -172,7 +161,7 @@ class App extends Component {
     return (
       <main className='main-page'>
         <Link to='/'>
-        <nav className='nav'>
+        <nav className='nav' alt='movie-reel-logo'>
           <button 
           className='main-logo' 
           onClick={this.goToMain}>
@@ -184,23 +173,26 @@ class App extends Component {
           {this.displaySearchBar()}
         </nav>
         </Link>
-        {this.checkIfLoading()}
+        {/* {this.checkIfLoading()}
         {this.handleIfFailed()}
-        {this.checkSearchSuccess()}
+        {this.checkSearchSuccess()} */}
+        {this.checkForErrors()}
         <Switch>
           <Route
             exact path='/'
             render={() => {
-              return (
-                <Movies movieData={this.state.movieData.movies} displayMovieDetails={this.displayMovieDetails} />
-              )
+              // if(this.state.movieData) {
+                return (
+                  <Movies movieData={this.state.movieData} displayMovieDetails={this.displayMovieDetails} />
+                )
+              // }
             }}
           />
           <Route
             exact path='/:id'
             render={({ match }) => {
               // {this.findMovie(match)}
-              const movie = this.state.movieData.movies.find(movie => {
+              const movie = this.state.movieData.find(movie => {
                 return movie.id === parseInt(match.params.id);
               })
               if(!movie) {
