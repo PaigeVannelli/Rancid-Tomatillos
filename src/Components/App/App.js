@@ -115,23 +115,6 @@ class App extends Component {
       return <h1 className='error'>No movies found. Try broadening your search.</h1>
     }
   }
-  // handleIfFailed = () => {
-  //   if (this.state.error) {
-  //     return <h1 className='error'>Failed to load</h1>
-  //   }
-  // }
-
-  // checkIfLoading = () => {
-  //   if (!this.state.movieData.length && !this.state.error && !this.state.searchValueInput) {
-  //     return <h1 className='error'>Loading...</h1>
-  //   }
-  // }
-
-  // checkSearchSuccess = () => {
-  //   if (!this.state.movieData.length && !this.state.error && this.state.searchValueInput) {
-  //     return <h1 className='error'>No movies found. Try broadening your search.</h1>
-  //   }
-  // }
 
   goToMain = () => {
     this.setState({ view: 'mainPage', currentMovieId: 0, searchValue: '', searchValueInput: '' })
