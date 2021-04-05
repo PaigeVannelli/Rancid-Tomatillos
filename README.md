@@ -17,9 +17,11 @@ Run the app on your local host
 
 ## Usage
 On page load you will be greeted with a large movie banner that displays movie title, date released, and rating. Clicking on the poster will take you to the movies detailed page.
+
 ![page load](https://gyazo.com/02e6ae89c516e217a05f191a5294a04e.gif)
 
 Scroll further down the page to view all movies available. Click on any movie to view its detailed page view. 
+
 ![all movies](https://i.gyazo.com/c4811213ef741aef4be204d9ae903988.gif)
 
 ## Contributing
