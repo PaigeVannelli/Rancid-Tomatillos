@@ -1,5 +1,6 @@
 *{
   color: white;
+  text-decoration: none;
 }
 
 html {
@@ -75,7 +76,7 @@ button {
   padding: 0px;
   position: absolute;
   border-width: 0px;
-  right: 65px;
+  right: 48px;
   top: 48px;
 }
 

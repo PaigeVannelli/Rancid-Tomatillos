@@ -54,10 +54,9 @@ class MovieDetails extends Component {
                             <div className='movie-details'>
                                 <p className='details'>Budget: ${this.formatAmounts(this.state.movieDetails.budget)}</p>
                                 <p className='details'>Revenue: ${this.state.movieDetails.revenue.toLocaleString()}</p>
-                                <p>Runtime: {this.state.movieDetails.runtime}</p>
-                                <p>{this.state.movieDetails.overview} </p>
+                                <p>Runtime: {this.state.movieDetails.runtime} min</p>
                             </div>
-                            <p>{this.state.overview} </p>
+                            <p>{this.state.movieDetails.overview} </p>
                         </div>
                         <div className='youtube-video'>
                             <Youtube embededId={this.state.embededId} />

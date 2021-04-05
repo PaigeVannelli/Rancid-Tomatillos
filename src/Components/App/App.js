@@ -2,6 +2,7 @@ import movieData from '../../movieData.js';
 import React, { Component } from 'react';
 import Movies from '../Movies/Movies.js'
 import MovieDetails from '../MovieDetails/MovieDetails.js'
+import MovieBanner from '../MovieBanner/MovieBanner.js'
 import {fetchAllMovies} from '../../APICalls'
 import './App.css'
 import logo from '../../logo.svg'
@@ -24,18 +25,36 @@ class App extends Component {
       error: '',
       searchValue: '',
       searchValueInput: '',
+      randomChosenMovie: {id: 0,title: '', dateReleased: '', rating: '', backgroundImage: ''},
     }
   }
 
   componentDidMount = () => {
       fetchAllMovies()
       .then(data => this.setState({ movieData: data.movies, displayedMovies: data.movies }))
+      .then(() => {this.chooseBannerMovie()})
       .catch(error => this.setState({ error: error.message }))
   }
 
   getDisplayedMovies = () => {
     let movies = this.state.movieData
     this.setState({ displayedMovies: movies })
+  }
+
+  chooseBannerMovie = () => {
+    // pick a random movie
+    //set state for chosen random movie
+    const randomMovie = this.state.movieData[Math.floor(Math.random() * this.state.movieData.length)];
+    this.setState(prevState => ({
+      randomChosenMovie: {                
+          ...prevState.randomChosenMovie,
+          id: randomMovie.id,    
+          title: randomMovie.title,
+          dateReleased: randomMovie.release_date,
+          rating: randomMovie.average_rating,
+          backgroundImage: randomMovie.backdrop_path,
+      }
+    }))
   }
 
   handleChange = (event) => {
@@ -118,39 +137,37 @@ class App extends Component {
     this.setState({ view: 'mainPage', currentMovieId: 0, searchValue: '', searchValueInput: '' })
     const allMovies = this.state.displayedMovies
     this.setState(prevState => ({movieData: allMovies}))
+    this.chooseBannerMovie()
   }
 
   displayMovieDetails = (id) => {
     this.setState({ view: 'detailedView', currentMovieId: id })
   }
 
-  // findMovie = (match) => {
-  //    const movie = this.state.movieData.find(movie => {
-  //       return movie.id === parseInt(match.params.id);
-  //     })
-  //     if(!movie) {
-  //       return (<p className='error'>This Movie Doesn't Exist!</p>)
-  //     }
-  //     return (
-  //       <MovieDetails id={match.params.id}/>
-  //     )
-  // }
-
-  // checkIfMovieExists = (match, movie) => {
-  //   if(!movie) {
-  //     return (<p className='error'>This Movie Doesn't Exist!</p>)
-  //   }
-  //   return (
-  //     <MovieDetails id={match.params.id.substring(1)}/>
-  //   )
-  // }
-
+  showMovieBanner = () => {
+    if(this.state.view === 'mainPage') {
+      return (
+      <Link to={`/${this.state.randomChosenMovie.id}`}>
+        <MovieBanner
+        displayMovieDetails={this.displayMovieDetails}
+        id={this.state.randomChosenMovie.id}
+        title={this.state.randomChosenMovie.title}
+        dateReleased={this.state.randomChosenMovie.dateReleased}
+        rating={this.state.randomChosenMovie.rating}
+        backgroundImage={this.state.randomChosenMovie.backgroundImage}/>
+      </Link>
+      )
+    }
+  }
 
   render() {
     return (
       <main className='main-page'>
         <Link to='/'>
-        <nav className='nav' alt='movie-reel-logo'>
+        <nav className='nav'
+         alt='movie-reel-logo'
+        style={this.state.view === 'mainPage' ? {position:'unset'} : {position:'fixed'}}
+         >
           <button 
           className='main-logo' 
           onClick={this.goToMain}>
@@ -162,25 +179,20 @@ class App extends Component {
           {this.displaySearchBar()}
         </nav>
         </Link>
-        {/* {this.checkIfLoading()}
-        {this.handleIfFailed()}
-        {this.checkSearchSuccess()} */}
+        {this.showMovieBanner()}
         {this.checkForErrors()}
         <Switch>
           <Route
             exact path='/'
             render={() => {
-              // if(this.state.movieData) {
                 return (
                   <Movies movieData={this.state.movieData} displayMovieDetails={this.displayMovieDetails} />
                 )
-              // }
             }}
           />
           <Route
             exact path='/:id'
             render={({ match }) => {
-              // {this.findMovie(match)}
               const movie = this.state.movieData.find(movie => {
                 return movie.id === parseInt(match.params.id);
               })
