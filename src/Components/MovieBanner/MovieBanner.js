@@ -13,7 +13,7 @@ const MovieBanner = ({ title, dateReleased, rating, backgroundImage, displayMovi
                 <h1 >{title}</h1>
                 <div className='movie-info'>
                     <p className='details'>{dateReleased}</p>
-                    <p>Rating: {Number(rating).toFixed(2)} / 10</p>
+                    <p>Rating: {Number(rating).toFixed(1)} / 10</p>
                 </div>
             </div>
         </section>
