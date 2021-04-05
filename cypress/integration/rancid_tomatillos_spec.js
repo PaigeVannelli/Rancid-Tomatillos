@@ -16,54 +16,38 @@ describe('Inital page view', () => {
     })
 
     it('Should display all movie posters on main page', () => {
-        cy.get('section').children().should('have.length', 40)
+        cy.get('section').children().should('have.length', 3)
     })
 })
 
 describe('Detailed poster view', () => {
-    beforeEach(() => {
+    before(() => {
+        cy.fixture('video.json')
+        .then(videoDetails => {
+            cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movies/694919/videos', videoDetails)
+        })
+        cy.fixture('details.json')
+        .then(movieDetails => {
+            cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movies/694919', movieDetails)
+        })
         cy.fixture('movie.json')
         .then(movieData => {
-            cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movies', {
-                statusCode: 200,
-                body: movieData
-            })
-        })
-        .then(() => {
-            cy.fixture('details.json')
-            .then(movieDetails => {
-                cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movie/694919', {
-                    statusCode: 200,
-                    body: movieDetails
-                })
-            })
-        })
-        .then(() => {
-            cy.fixture('video.json')
-            .then(videoDetails => {
-                cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movie/694919/videos', {
-                    statusCode: 200,
-                    body: videoDetails
-                })
-            })
+            cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movies', movieData)
         })
         cy.visit('http://localhost:3000/') 
     })
 
-    it.only('Should be able to click on a specific movie and see more details', () => {
+    it('Should be able to click on a specific movie and see more details', () => {
         cy.get('a')
         .get('[href="/694919"]')
         .click()
-        // cy.fixture('details.json')
-        // .then(details => {
-        //     cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movie/694919', {
-        //         statusCode: 200,
-        //         body: details
-        //     })
-        // })
-        // cy.visit('http://localhost:3000/694919')
-        cy.wait(5000)
+        cy.wait(1000)
         cy.get('h1').contains('Money Plane')
+    })
+
+    it('Should display the correct movie trailer when movie poster is clicked', () => {
+        cy.get('[data-cy=video]')
+        // .its('0.contentDocument').should('exist')
     })
 })
 
@@ -71,10 +55,7 @@ describe('Movie Filtering', () => {
     beforeEach(() => {
         cy.fixture('movie.json')
         .then(movieData => {
-            cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movies', {
-                statusCode: 200,
-                body: movieData
-            })
+            cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movies', movieData)
         })
         cy.visit('http://localhost:3000/') 
     })
@@ -110,54 +91,87 @@ describe('Movie Filtering', () => {
        .click()
        cy.get('section').children().should('have.length', 3)
     })
+
+    it('Should show error message if no movies match search criteria', () => {
+       cy.get('input')
+       .type('xzy')
+       cy.get('[data-cy=search-button]')
+       .click()
+       cy.get('h1')
+       .contains('No movies found')
+    })
 })
 
-// describe('Video Display', () => {
-//     beforeEach(() => {
-//         cy.fixture('video.json')
-//         .then(videoData => {
-//             cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movies/694919/videos', {
-//                 statusCode: 200,
-//                 body: videoData
-//             })
-//         })
-//         cy.visit('http://localhost:3000/:694919') 
-//         cy.wait(1000)
-//     })
+describe('Error Messages All Movies', () => {
+    it('Should show a loading message when movies are still loading', () => {
+        cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movies', {videos: []})
+        cy.visit('http://localhost:3000/')
+        cy.get('h1')
+        .contains('Loading')
+    })
+  
+    it('Should return an error if the server cannot get the movie data', () => {
+        cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movies', {
+            method: 'GET',
+            url: 'https://rancid-tomatillos.herokuapp.com/api/v2/movies',
+            status: 500,
+            response: {
+                message: 'Something went wrong, please try again later'
+            }
+        })
+        cy.visit('http://localhost:3000/')
+        cy.get('p')
+        .contains('Error loading movies')
+    })
+})
 
-//     it('Should show a movie trailer when viewing movie details', () => {
-//         cy.get('a')
-//         .contains('MONEY PLANE')
-//      })
-// })
-
-describe('Error Messages', () => {
-    beforeEach(() => {
+describe('Error Messages Movie Details', () => {
+    before(() => {
         cy.fixture('video.json')
-        .then(() => {
-            cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movies', {
-                statusCode: 200,
-                body: {
-                    message: 'Error data not found'
-                }
-            })
+        .then(videoDetails => {
+            cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movies/694919/videos', videoDetails)
+        })
+        cy.fixture('details.json')
+        .then(movieDetails => {
+            cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movies/694919', {movie: {title: ''}})
+        })
+        cy.fixture('movie.json')
+        .then(movieData => {
+            cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movies', movieData)
         })
         cy.visit('http://localhost:3000/') 
     })
 
-    it('Should show a movie trailer when viewing movie details', () => {
-        // cy.get('a')
-        // .contains('MONEY PLANE')
-     })
+    it('Should show a loading message when movie details are still loading', () => {
+        cy.get('a')
+        .get('[href="/694919"]')
+        .click()
+        cy.get('h1')
+        .contains('Loading')
+    })
+  
 })
 
-//check filtering 
-//check video fetch?
-//check server error messages
-//check if there are no movies that match filter
-// check if loading?
+describe('Error Messages Movie Details', () => {
+    it('Should return an error if the server cannot get the movie data', () => {
+        cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movies/694919', {
+            method: 'GET',
+            url: 'https://rancid-tomatillos.herokuapp.com/api/v2/movies',
+            status: 500,
+            response: {
+                message: 'Something went wrong, please try again later'
+            }
+        })
+        cy.visit('http://localhost:3000/')
+        cy.get('a')
+        .get('[href="/694919"]')
+        .click()
+        cy.get('h1')
+        .contains('Error loading movies. Please try again later')
+    })
+})
+
 //check if it can go back a page cy.go('back')
-
-
+//check for video errors 
 
 
