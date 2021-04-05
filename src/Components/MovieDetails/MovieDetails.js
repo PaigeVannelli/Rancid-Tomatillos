@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './MovieDetails.css'
 import Youtube from '../../Components/Youtube/Youtube.js'
-import {fetchMovieDetails} from '../../APICalls'
+import { fetchMovieDetails } from '../../APICalls'
 
 class MovieDetails extends Component {
     constructor(props) {
@@ -16,8 +16,8 @@ class MovieDetails extends Component {
 
     componentDidMount() {
         fetchMovieDetails(this.state.id)
-        .then(allData => this.setState({movieDetails: allData.movieDetails, embededId: allData.videoDetails[0].key}))
-        .catch(error => this.setState({ error: error.message }))
+            .then(allData => this.setState({ movieDetails: allData.movieDetails, embededId: allData.videoDetails[0].key }))
+            .catch(error => this.setState({ error: error.message }))
     }
 
     getGenres() {
@@ -41,7 +41,7 @@ class MovieDetails extends Component {
             <div className='movies-div'>
                 {this.checkForErrors()}
                 {(!this.state.error && this.state.movieDetails.title) &&
-                     <section style={{
+                    <section style={{
                         background:
                             `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(${this.state.movieDetails.backdrop_path}) no-repeat center center fixed`
                     }}>
@@ -54,12 +54,12 @@ class MovieDetails extends Component {
                             <div className='movie-details'>
                                 <p className='details'>Budget: ${this.formatAmounts(this.state.movieDetails.budget)}</p>
                                 <p className='details'>Revenue: ${this.state.movieDetails.revenue.toLocaleString()}</p>
-                                <p>Runtime: {this.state.movieDetails.runtime}</p>
-                                <p>{this.state.movieDetails.overview} </p>
+                                <p>Runtime: {this.state.movieDetails.runtime} min</p>
                             </div>
+                            <p>{this.state.movieDetails.overview} </p>
                         </div>
                         <div className='youtube-video'>
-                            <Youtube embededId={this.state.embededId}/>
+                            <Youtube embededId={this.state.embededId} />
                         </div>
                     </section>
                 }

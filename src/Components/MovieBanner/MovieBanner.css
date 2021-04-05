@@ -1,0 +1,14 @@
+.movie-banner {
+    display: flex;
+    flex-direction: column;
+    box-shadow: rgba(0, 0, 0, 0.8) 0px 1px 10px 0px;
+}
+
+.movie-banner-info {
+    margin-left: 100px;
+}
+
+.movie-info {
+    display: flex;
+    flex-direction: row;
+}
