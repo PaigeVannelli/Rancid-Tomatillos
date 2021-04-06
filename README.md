@@ -24,10 +24,15 @@ Scroll further down the page to view all movies available. Click on any movie to
 
 ![all movies](https://i.gyazo.com/c4811213ef741aef4be204d9ae903988.gif)
 
+## Technologies Used
+
+* React
+* Router
+* CSS
+* Cypress
+
 ## Contributing
+
 [Paige Vannelli](github.com/paigevannelli)
 
 [Josh Aragon](github.com/josharagon)
-
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
